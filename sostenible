@@ -1,0 +1,29 @@
+import  os
+import random
+import discord
+from discord.ext import commands
+
+# La variable intents almacena los privilegios del bot
+intents = discord.Intents.default()
+# Activar el privilegio de lectura de mensajes
+intents.message_content = True
+# Crear un bot en la variable bote y transferirle los privilegios
+bot = commands.Bot(command_prefix='$', intents=intents) 
+
+recetas = ["1. Bocadillos de sobras de carne o pollo.  Ingredientes: Restos de carne o pollo. Pan (puede ser cualquier tipo de pan o baguette). Salsa o mayonesa (opcional). Hojas de lechuga o tomate (opcional). Preparación: Calienta los restos de carne o pollo en una sartén o microondas.Coloca la carne o pollo caliente sobre el pan. Agrega un poco de mayonesa o salsa y algunas hojas de lechuga o rodajas de tomate si las tienes. ! Ya tienes un bocadillo rápido.", ]
+@bot.command()
+async def sostenible(ctx):
+    meme = random.choice(os.listdir("images"))
+    with open(f'images/{meme}', 'rb') as f:
+        # ¡Vamos a almacenar el archivo de la biblioteca Discord convertido en esta variable!
+        picture = discord.File(f)
+    # A continuación, podemos enviar este archivo como parámetro.
+    await ctx.send(file=picture)
+
+
+@bot.command()
+async def receta(ctx):
+    receta = random.choice(recetas)
+    await ctx.send(receta)
+
+bot.run("")
